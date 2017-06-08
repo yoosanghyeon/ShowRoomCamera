@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="squarecamera__red">#F0001D</color>
+    <color name="squarecamera__pressed_red">#B3F0001D</color>
+    <color name="squarecamera__white">#FFFFFF</color>
+    <color name="squarecamera__pressed_white">#99FFFFFF</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="bottomNormal">#cccccc</color>
+    <color name="bottomSelected">#21a5d1</color>
+    <color name="bottomBackground">#eceded</color>
+
+    <color name="tab_background_selected">#235777</color>
+    <color name="tab_background_unselected">#1c4d6d</color>
+
+
+    <color name="strong_blue">#21a5d1</color>
+    <color name="soft_blue">#21d1c7</color>
+    <color name="text_color">#24a6d1</color>
+
+</resources>
