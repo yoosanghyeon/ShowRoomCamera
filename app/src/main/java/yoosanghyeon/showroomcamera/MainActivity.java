@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_CAMERA) {
             Uri photoUri = data.getData();
-            // Get the bitmap in according to the width of the device
             Bitmap bitmap = ImageUtility.decodeSampledBitmapFromPath(photoUri.getPath(), mSize.x, mSize.x);
             ((ImageView) findViewById(R.id.image)).setImageBitmap(bitmap);
         }

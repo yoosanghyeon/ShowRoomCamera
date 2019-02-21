@@ -51,7 +51,7 @@ public class EditSavePhotoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.squarecamera__fragment_edit_save_photo, container, false);
+        return inflater.inflate(R.layout.showroom_fragment_edit_save_photo, container, false);
     }
 
     @Override
@@ -84,6 +84,13 @@ public class EditSavePhotoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 savePicture();
+            }
+        });
+
+        view.findViewById(R.id.camera_save_close_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
             }
         });
     }

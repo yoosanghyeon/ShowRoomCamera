@@ -31,8 +31,9 @@ import java.io.IOException;
 import java.util.List;
 
 import yoosanghyeon.showroomcamera.R;
+import yoosanghyeon.showroomcamera.common.AppBaseFragment;
 
-public class CameraFragment extends Fragment implements SurfaceHolder.Callback, Camera.PictureCallback {
+public class CameraFragment extends AppBaseFragment implements SurfaceHolder.Callback, Camera.PictureCallback {
 
     public static final String TAG = CameraFragment.class.getSimpleName();
     public static final String CAMERA_ID_KEY = "camera_id";
@@ -86,13 +87,21 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.squarecamera__fragment_camera, container, false);
+        return inflater.inflate(R.layout.showroom_fragment_camera, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mOrientationListener.enable();
+
+
+        view.findViewById(R.id.camera_close_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
 
         mPreviewView = (SquareCameraPreview) view.findViewById(R.id.camera_preview_view);
         mPreviewView.getHolder().addCallback(CameraFragment.this);
@@ -115,7 +124,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
                             = mImageParameters.calculateCoverWidthHeight();
 
 //                    Log.d(TAG, "parameters: " + mImageParameters.getStringValues());
-//                    Log.d(TAG, "cover height " + topCoverView.getHeight());
+                    Log.d(TAG, "cover height " + topCoverView.getHeight());
                     resizeTopAndBtmCover(topCoverView, btnCoverView);
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -160,7 +169,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
                     mFlashMode = Camera.Parameters.FLASH_MODE_AUTO;
                 }
 
-                setupFlashMode();
+//                setupFlashMode();
                 setupCamera();
             }
         });
@@ -173,20 +182,14 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
                 takePicture();
             }
         });
+        Log.e(TAG, new String(""+topCoverView.getHeight()));
     }
 
     private void setupFlashMode() {
         View view = getView();
         if (view == null) return;
 
-        final TextView autoFlashIcon = (TextView) view.findViewById(R.id.auto_flash_icon);
-        if (Camera.Parameters.FLASH_MODE_AUTO.equalsIgnoreCase(mFlashMode)) {
-            autoFlashIcon.setText("Auto");
-        } else if (Camera.Parameters.FLASH_MODE_ON.equalsIgnoreCase(mFlashMode)) {
-            autoFlashIcon.setText("On");
-        }  else if (Camera.Parameters.FLASH_MODE_OFF.equalsIgnoreCase(mFlashMode)) {
-            autoFlashIcon.setText("Off");
-        }
+
     }
 
     @Override
@@ -494,7 +497,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     public void onPictureTaken(byte[] data, Camera camera) {
         int rotation = getPhotoRotation();
 //        Log.d(TAG, "normal orientation: " + orientation);
-//        Log.d(TAG, "Rotate Picture by: " + rotation);
+        Log.d(TAG, "Rotate Picture by: " + rotation);
         getFragmentManager()
                 .beginTransaction()
                 .replace(
