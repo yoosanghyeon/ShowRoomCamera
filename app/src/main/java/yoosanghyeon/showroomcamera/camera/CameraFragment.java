@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,7 +45,7 @@ public class CameraFragment extends AppBaseFragment implements SurfaceHolder.Cal
     private int mCameraID;
     private String mFlashMode;
     private Camera mCamera;
-    private SquareCameraPreview mPreviewView;
+    private ShowRoomCameraPreview mPreviewView;
     private SurfaceHolder mSurfaceHolder;
 
     private boolean mIsSafeToTakePhoto = false;
@@ -103,7 +102,7 @@ public class CameraFragment extends AppBaseFragment implements SurfaceHolder.Cal
             }
         });
 
-        mPreviewView = (SquareCameraPreview) view.findViewById(R.id.camera_preview_view);
+        mPreviewView = (ShowRoomCameraPreview) view.findViewById(R.id.camera_preview_view);
         mPreviewView.getHolder().addCallback(CameraFragment.this);
 
         final View topCoverView = view.findViewById(R.id.cover_top_view);

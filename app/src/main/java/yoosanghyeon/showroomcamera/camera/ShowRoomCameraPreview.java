@@ -16,9 +16,9 @@ import java.util.List;
 /**
  *
  */
-public class SquareCameraPreview extends SurfaceView {
+public class ShowRoomCameraPreview extends SurfaceView {
 
-    public static final String TAG = SquareCameraPreview.class.getSimpleName();
+    public static final String TAG = ShowRoomCameraPreview.class.getSimpleName();
     private static final int INVALID_POINTER_ID = -1;
 
     private static final int ZOOM_OUT = 0;
@@ -48,17 +48,17 @@ public class SquareCameraPreview extends SurfaceView {
     private Camera.Area mFocusArea;
     private ArrayList<Camera.Area> mFocusAreas;
 
-    public SquareCameraPreview(Context context) {
+    public ShowRoomCameraPreview(Context context) {
         super(context);
         init(context);
     }
 
-    public SquareCameraPreview(Context context, AttributeSet attrs) {
+    public ShowRoomCameraPreview(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public SquareCameraPreview(Context context, AttributeSet attrs, int defStyle) {
+    public ShowRoomCameraPreview(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }

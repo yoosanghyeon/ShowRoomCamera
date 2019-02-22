@@ -3,6 +3,8 @@ package yoosanghyeon.showroomcamera.camera;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -21,7 +23,7 @@ public class CameraActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        setContentView(R.layout.squarecamera__activity_camera);
+        setContentView(R.layout.showroom__activity_camera);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -46,5 +48,21 @@ public class CameraActivity extends AppCompatActivity {
 
     public void onCancel(View view) {
         getSupportFragmentManager().popBackStack();
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if(getSupportFragmentManager().findFragmentById(R.id.fragment_container) != null && currentFragment instanceof EditSavePhotoFragment){
+            currentFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

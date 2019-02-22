@@ -7,7 +7,7 @@
                 tools:context=".camera.CameraActivity">
 
 
-    <yoosanghyeon.showroomcamera.camera.SquareCameraPreview
+    <yoosanghyeon.showroomcamera.camera.ShowRoomCameraPreview
         android:id="@+id/camera_preview_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

@@ -67,7 +67,7 @@ public class ImageUtility {
 
         File mediaStorageDir = new File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                context.getString(R.string.squarecamera__app_name)
+                context.getString(R.string.showroom__app_name)
         );
 
         if (!mediaStorageDir.exists()) {

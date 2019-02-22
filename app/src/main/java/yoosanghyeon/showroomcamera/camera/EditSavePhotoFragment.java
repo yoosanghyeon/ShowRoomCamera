@@ -3,6 +3,7 @@ package yoosanghyeon.showroomcamera.camera;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -10,15 +11,27 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.security.Permission;
+import java.util.ArrayList;
 
 import yoosanghyeon.showroomcamera.R;
+import yoosanghyeon.showroomcamera.constant.PermissionDefineConstant;
+import yoosanghyeon.showroomcamera.helper.PermissionHelper;
+import yoosanghyeon.showroomcamera.helper.PermissionListner;
 
 
 /**
@@ -95,6 +108,7 @@ public class EditSavePhotoFragment extends Fragment {
         });
     }
 
+
     private void rotatePicture(int rotation, byte[] data, ImageView photoImageView) {
         Bitmap bitmap = ImageUtility.decodeSampledBitmapFromByte(getActivity(), data);
 //        Log.d(TAG, "original bitmap width " + bitmap.getWidth() + " height " + bitmap.getHeight());
@@ -114,8 +128,31 @@ public class EditSavePhotoFragment extends Fragment {
         photoImageView.setImageBitmap(bitmap);
     }
 
+    private PermissionHelper permissionHelper;
     private void savePicture() {
-        requestForPermission();
+
+
+
+
+         permissionHelper = PermissionHelper.newInstance(((AppCompatActivity)getActivity()), new PermissionListner() {
+            @Override
+            public void onPermissionGranted() {
+                final View view = getView();
+                ImageView photoImageView = (ImageView) view.findViewById(R.id.photo);
+
+                Bitmap bitmap = ((BitmapDrawable) photoImageView.getDrawable()).getBitmap();
+                Uri photoUri = ImageUtility.savePicture(getActivity(), bitmap);
+
+                ((CameraActivity) getActivity()).returnPhotoUri(photoUri);
+            }
+
+            @Override
+            public void onPermissionDenied() {
+                showDialogGuideForPermissionSettingGuide();
+            }
+        });
+
+        permissionHelper.requestPermission(PermissionDefineConstant.STOREAGE_WRITE_PERMISSION , new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE}, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void requestForPermission() {
@@ -124,23 +161,36 @@ public class EditSavePhotoFragment extends Fragment {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
+
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (Activity.RESULT_OK != resultCode) return;
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionHelper.onRequestPermissionsResult(requestCode , permissions, grantResults);
+        Log.e(TAG , "onRequestPermissionsResult excute");
 
-        if (REQUEST_STORAGE == requestCode && data != null) {
-            final boolean isGranted = data.getBooleanExtra(RuntimePermissionActivity.REQUESTED_PERMISSION, false);
-            final View view = getView();
-            if (isGranted && view != null) {
-                ImageView photoImageView = (ImageView) view.findViewById(R.id.photo);
-
-                Bitmap bitmap = ((BitmapDrawable) photoImageView.getDrawable()).getBitmap();
-                Uri photoUri = ImageUtility.savePicture(getActivity(), bitmap);
-
-                ((CameraActivity) getActivity()).returnPhotoUri(photoUri);
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
+
+    private void showDialogGuideForPermissionSettingGuide() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("알림");
+        builder.setMessage("권한을 허용해주세요.");
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent appDetail = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getActivity().getPackageName()));
+                appDetail.addCategory(Intent.CATEGORY_DEFAULT);
+                appDetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(appDetail);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
 }

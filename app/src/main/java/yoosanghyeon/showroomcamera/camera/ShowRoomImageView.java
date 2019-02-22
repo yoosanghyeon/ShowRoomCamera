@@ -1,23 +1,24 @@
 package yoosanghyeon.showroomcamera.camera;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
  * Created by desmond on 9/8/15.
  */
-public class SquareImageView extends ImageView {
+public class ShowRoomImageView extends AppCompatImageView {
 
-    public SquareImageView(Context context) {
+    public ShowRoomImageView(Context context) {
         super(context);
     }
 
-    public SquareImageView(Context context, AttributeSet attrs) {
+    public ShowRoomImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquareImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ShowRoomImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(MainActivity.this, permission)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, permission)) {
-                showPermissionRationaleDialog("Test", permission);
+                showPermissionRationaleDialog("카메라 촬영을 위해 권한을 필요로 합니다.", permission);
             } else {
                 requestForPermission(permission);
             }
