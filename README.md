@@ -11,8 +11,8 @@
 ## ScreenShot
 
 <p float="left">
-<img src="https://github.com/yoosanghyeon/ShowRoomCamera/blob/master/showroom_camera.png?raw=true" alt="camera" width="200" style="max-width: 100%;border-width: 1px;border-style: solid;"/>
-<img src="https://github.com/yoosanghyeon/ShowRoomCamera/blob/master/showroom_edit.png?raw=true" alt="edit" width="200" style="max-width: 100%;margin-left: 15px;border-width: 1px;border-style: solid;"/>
+<img src="https://github.com/yoosanghyeon/ShowRoomCamera/blob/master/showroom_camera.png?raw=true" alt="camera" width="200" style="max-width: 100%; border-width: 1px !important ;border-style: solid !important;"/>
+<img src="https://github.com/yoosanghyeon/ShowRoomCamera/blob/master/showroom_edit.png?raw=true" alt="edit" width="200" style="max-width: 100%;margin-left: 15px !important;border-width: 1px !important;border-style: solid !important;"/>
 </p>
 
 
